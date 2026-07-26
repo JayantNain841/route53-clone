@@ -1,0 +1,21 @@
+# Python
+.venv/
+venv/
+backend/venv/
+__pycache__/
+*.pyc
+
+# Node
+frontend/node_modules/
+frontend/.next/
+
+# TypeScript
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db

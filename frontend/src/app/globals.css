@@ -1,0 +1,784 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ─── AWS Console Font Stack ─────────────────────────────────────────────── */
+
+:root {
+  --background: #f2f3f3;
+  --foreground: #16191f;
+
+  /* AWS Color Palette */
+  --aws-orange: #ff9900;
+  --aws-orange-hover: #ec8b00;
+  --aws-orange-dark: #a16000;
+  --aws-navy: #232f3e;
+  --aws-navy-light: #2d3b4e;
+  --aws-sidebar-bg: #1a2332;
+  --aws-sidebar-hover: #253345;
+  --aws-sidebar-active: #3e4f64;
+  --aws-sidebar-border: #253345;
+  --aws-blue: #0066cc;
+  --aws-blue-dark: #0073bb;
+  --aws-text-primary: #16191f;
+  --aws-text-secondary: #545b64;
+  --aws-border: #d5dbdb;
+  --aws-border-light: #eaeded;
+  --aws-bg-light: #f2f3f3;
+  --aws-bg-white: #ffffff;
+  --aws-green: #1d8102;
+  --aws-red: #d13212;
+}
+
+/* Dark theme overrides */
+.dark :root,
+.dark {
+  --background: #0b1116;
+  --foreground: #e6eef6;
+
+  --aws-navy: #0b1620;
+  --aws-navy-light: #0f2430;
+  --aws-sidebar-bg: #071223;
+  --aws-sidebar-hover: #0f2430;
+  --aws-sidebar-active: #1b2a36;
+  --aws-sidebar-border: #0e1a24;
+  --aws-border: #1f2a33;
+  --aws-border-light: #122029;
+  --aws-bg-light: #0b1116;
+  --aws-bg-white: #071019;
+  --aws-text-primary: #e6eef6;
+  --aws-text-secondary: #a9b6c3;
+}
+
+/* Dark-mode element overrides to cover hard-coded colors */
+.dark header {
+  background-color: var(--aws-navy) !important;
+  color: var(--foreground) !important;
+}
+
+.dark header .text-gray-400 { color: var(--aws-text-secondary) !important; }
+.dark header .text-gray-200 { color: var(--aws-text-primary) !important; }
+.dark header input {
+  background-color: #0f2430 !important;
+  color: var(--aws-text-primary) !important;
+  border-color: var(--aws-sidebar-border) !important;
+}
+
+.dark aside {
+  background-color: var(--aws-sidebar-bg) !important;
+  border-right-color: var(--aws-sidebar-border) !important;
+}
+
+.dark .aws-sidebar-section-header { color: #7f93a2 !important; }
+.dark .aws-sidebar-item { color: var(--aws-text-secondary) !important; background: transparent !important; }
+.dark .aws-sidebar-item:hover { background-color: var(--aws-sidebar-hover) !important; color: #fff !important; }
+.dark .aws-sidebar-item-active { background-color: var(--aws-sidebar-active) !important; color: #fff !important; border-left-color: var(--aws-orange) !important; }
+.dark .aws-sidebar-item svg { color: #9fb1c2 !important; }
+
+.dark .aws-card { background: #07121a !important; border-color: var(--aws-border) !important; color: var(--aws-text-primary) !important; }
+.dark .aws-card-header { background-color: #07161d !important; border-bottom-color: var(--aws-border) !important; }
+.dark .aws-table th { background: #07161d !important; color: var(--aws-text-secondary) !important; border-bottom-color: var(--aws-border) !important; }
+.dark .aws-table td { background: transparent !important; color: var(--aws-text-primary) !important; border-bottom-color: var(--aws-border) !important; }
+
+.dark .aws-btn-primary { background-color: var(--aws-orange) !important; color: #000 !important; }
+.dark .aws-btn-secondary { background-color: #071219 !important; border-color: #17303c !important; color: var(--aws-text-primary) !important; }
+
+.dark .aws-input { background: #071219 !important; color: var(--aws-text-primary) !important; border-color: #17303c !important; }
+
+/* Generic element fallbacks for hardcoded tailwind hex classes */
+.dark .text-gray-500 { color: var(--aws-text-secondary) !important; }
+.dark .text-gray-700 { color: var(--aws-text-primary) !important; }
+.dark .bg-\[\#232f3e\] { background-color: var(--aws-navy) !important; }
+.dark .bg-\[\#16213a\] { background-color: #0f2430 !important; }
+.dark .bg-\[\#1a2332\] { background-color: var(--aws-sidebar-bg) !important; }
+.dark .border-\[\#253345\] { border-color: var(--aws-sidebar-border) !important; }
+.dark .bg-\[\#3e4f64\] { background-color: var(--aws-sidebar-active) !important; }
+.dark .hover\:bg-\[\#253345\]:hover { background-color: var(--aws-sidebar-hover) !important; }
+
+/* Wider dark-mode fallbacks for common hard-coded hex classes found in components */
+/* Backgrounds -> map to dark background variants */
+.dark .bg-\[\#f2f3f3\], .dark .bg-\[\#ffffff\], .dark .bg-white { background-color: var(--background) !important; }
+.dark .bg-\[\#fafafa\] { background-color: #071219 !important; }
+.dark .bg-\[\#fcf2e3\] { background-color: #0b1720 !important; }
+.dark .bg-\[\#ff9900\] { background-color: var(--aws-orange) !important; }
+.dark .bg-\[\#3e4f64\] { background-color: var(--aws-sidebar-active) !important; }
+.dark .bg-\[\#1a2332\] { background-color: var(--aws-sidebar-bg) !important; }
+.dark .bg-\[\#16213a\] { background-color: #0f2430 !important; }
+.dark .bg-\[\#fdf3f1\] { background-color: #071219 !important; }
+
+/* Text colors -> map to primary/secondary variables */
+.dark .text-\[\#16191f\], .dark .text-black { color: var(--aws-text-primary) !important; }
+.dark .text-\[\#545b64\], .dark .text-\[\#7b8a98\], .dark .text-\[\#aab7c4\] { color: var(--aws-text-secondary) !important; }
+.dark .text-\[\#ff9900\] { color: var(--aws-orange) !important; }
+
+/* Border colors */
+.dark .border-\[\#eaeded\], .dark .border-\[\#d5dbdb\], .dark .border-\[\#aab7c4\] { border-color: var(--aws-border) !important; }
+.dark .border-\[\#253345\] { border-color: var(--aws-sidebar-border) !important; }
+
+/* Hover/active variants */
+.dark .hover\:bg-\[\#f2f3f3\]:hover { background-color: #071219 !important; }
+.dark .hover\:text-\[\#16191f\]:hover { color: var(--aws-text-primary) !important; }
+
+/* Table / card specific fallbacks */
+.dark .bg-\[\#e8f4fc\] { background-color: rgba(11,17,22,0.12) !important; }
+.dark .bg-\[\#f2f8fc\] { background-color: rgba(11,17,22,0.08) !important; }
+.dark .bg-\[\#eaf3fb\] { background-color: rgba(11,17,22,0.06) !important; }
+
+/* Scrollbar fallbacks */
+.dark ::-webkit-scrollbar-track { background: #071219 !important; }
+.dark ::-webkit-scrollbar-thumb { background: #2b3b46 !important; }
+
+/* Misc */
+.dark .shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,0.6) !important; }
+
+/* Semantic classes used by components to enable theme control */
+header.app-header {
+  background-color: var(--aws-navy);
+  color: #fff;
+}
+
+.aws-search-input {
+  background-color: #16213a;
+  border-color: #3e4f64;
+  color: #e6eef6;
+}
+.dark .aws-search-input { background-color: #0f2430 !important; color: var(--aws-text-primary) !important; border-color: var(--aws-sidebar-border) !important; }
+
+.aws-sidebar {
+  background-color: var(--aws-sidebar-bg);
+  border-right: 1px solid var(--aws-sidebar-border);
+}
+.aws-sidebar.collapsed { border-right: 0; }
+.aws-sidebar-item-collapsed { color: var(--aws-text-secondary); }
+.aws-sidebar-item-collapsed:hover { background-color: var(--aws-sidebar-hover); color: #fff; }
+.aws-sidebar-item-active-collapsed { background-color: var(--aws-sidebar-active); color: #fff; border-left-color: var(--aws-orange); }
+
+.settings-panel {
+  background: var(--aws-bg-white);
+  border-color: var(--aws-border-light);
+}
+.dark .settings-panel { background: #07121a !important; border-color: var(--aws-border) !important; color: var(--aws-text-primary); }
+.settings-panel input[type="radio"] { accent-color: var(--aws-blue); }
+
+.settings-panel svg { vertical-align: middle; }
+.settings-panel .text-yellow-500 { color: #ffb84d; }
+.settings-panel .text-gray-300 { color: #9aa6b2; }
+
+/* Force header child backgrounds/borders to follow theme (fix leftover strip) */
+.app-header { transition: background-color 0.15s, color 0.15s; }
+.light .app-header { background-color: var(--aws-bg-white) !important; color: var(--aws-text-primary) !important; }
+.dark .app-header { background-color: var(--aws-navy) !important; color: var(--aws-text-primary) !important; }
+
+/* Force the top application header to always appear dark */
+header.app-header, .app-header { background-color: var(--aws-navy) !important; color: #fff !important; }
+
+/* Ensure interactive header controls remain readable */
+.app-header button, .app-header a, .app-header span, .app-header svg { color: inherit !important; }
+.app-header .aws-search-input { background-color: #0f2430 !important; color: var(--aws-text-primary) !important; border-color: var(--aws-sidebar-border) !important; }
+
+/* Keep dropdown panels (settings/region/account) with their intended backgrounds */
+.app-header .settings-panel, .app-header .settings-panel * { background: var(--aws-bg-white) !important; color: var(--aws-text-primary) !important; }
+.app-header .settings-panel { border-color: var(--aws-border-light) !important; }
+
+/* High-specificity always-dark header to override any utility classes */
+header.always-dark-header { background-color: var(--aws-navy) !important; color: #fff !important; }
+header.always-dark-header > * { color: inherit !important; }
+header.always-dark-header svg { color: currentColor !important; }
+/* Neutralize common utility background/border helpers inside header but avoid affecting dropdown panels */
+header.always-dark-header :where(.bg-white, [class*="bg-\[#"], [class*="bg-\["]) { background-color: transparent !important; }
+header.always-dark-header :where([class*="border-"]) { border-color: rgba(255,255,255,0.06) !important; }
+
+/* Strong global header override: ensure any top header stays dark */
+html > body > header,
+body > header,
+header.app-header,
+header.always-dark-header,
+header[role="banner"] {
+  background-color: var(--aws-navy) !important;
+  background-image: none !important;
+  color: #fff !important;
+}
+
+/* Keep header shadow and ensure header elements inherit readable colors */
+header.app-header, header.always-dark-header { box-shadow: 0 1px 0 rgba(0,0,0,0.25) inset !important; }
+header.app-header > *, header.always-dark-header > * { color: inherit !important; }
+
+/* Explicitly restore dropdown panels inside the header to their intended (light) backgrounds */
+header .settings-panel, header .settings-panel *,
+header .region-panel, header .account-panel { background: var(--aws-bg-white) !important; color: var(--aws-text-primary) !important; }
+header .settings-panel { border-color: var(--aws-border-light) !important; }
+
+/* Also prevent any background-image or gradients from overlaying the header */
+header, header * { background-image: none !important; }
+
+/* Buttons/segments that use Tailwind helper classes like border-white/10 or bg-white/10 */
+.light .app-header [class*="border-white"] { border-color: var(--aws-border-light) !important; }
+.dark .app-header [class*="border-white"] { border-color: var(--aws-sidebar-border) !important; }
+
+.light .app-header [class*="bg-white"] { background-color: rgba(255,255,255,0.98) !important; }
+.dark .app-header [class*="bg-white"] { background-color: rgba(0,0,0,0.08) !important; }
+
+/* KBD/mini pills in header (keep readable in both modes) */
+.app-header kbd { background-color: rgba(0,0,0,0.25); color: var(--aws-text-primary); border-radius: 3px; padding: 2px 6px; }
+.light .app-header kbd { background-color: rgba(0,0,0,0.08); color: var(--aws-text-primary); }
+.dark .app-header kbd { background-color: rgba(255,255,255,0.04); color: var(--aws-text-primary); }
+
+/* Force header children to inherit header background and readable colors in light mode
+   Avoid overriding SVG logo fills (keep their inline fills) by only affecting elements with background or utility classes. */
+.light .app-header {
+  background-color: var(--aws-bg-white) !important;
+  color: var(--aws-text-primary) !important;
+}
+.light .app-header * {
+  /* reset unintended background helpers */
+  background-color: transparent !important;
+  color: inherit !important;
+}
+.light .app-header svg { color: inherit !important; }
+.light .app-header svg path[fill]:not([fill="#FF9900"]) { fill: currentColor !important; }
+
+/* Make search input clear in light mode */
+.light .aws-search-input { background-color: var(--aws-bg-white) !important; color: var(--aws-text-primary) !important; border-color: var(--aws-border-light) !important; }
+.dark .aws-search-input { background-color: #0f2430 !important; color: var(--aws-text-primary) !important; }
+
+/* restore KBD appearance after the * reset */
+.light .app-header kbd { background-color: rgba(0,0,0,0.06) !important; color: var(--aws-text-primary) !important; }
+.dark .app-header kbd { background-color: rgba(255,255,255,0.04) !important; color: var(--aws-text-primary) !important; }
+
+/* Sidebar semantic classes styling */
+.aws-sidebar { background-color: var(--aws-sidebar-bg); border-right: 1px solid var(--aws-sidebar-border); }
+.aws-sidebar.collapsed { width: 48px; }
+.aws-sidebar-item { color: var(--aws-text-secondary); }
+.dark .aws-sidebar-item { color: var(--aws-text-secondary); }
+.aws-sidebar-item-active { background-color: var(--aws-sidebar-active); color: #fff; }
+
+/* Create Hosted Zone page specific tweaks to match AWS look */
+.create-hosted-zone-page .aws-card {
+  border-radius: 12px;
+  border: 1px solid var(--aws-border-light);
+  background: var(--aws-bg-white);
+  box-shadow: none;
+}
+.create-hosted-zone-page .aws-card + .aws-card { margin-top: 18px; }
+.create-hosted-zone-page .aws-card-header { background: transparent; border-bottom: none; padding: 18px 20px; }
+.create-hosted-zone-page .aws-card .p-5 { padding: 18px 20px; }
+.create-hosted-zone-page .aws-input { background: #fff; border: 1px solid #d9dadb; border-radius: 8px; padding: 10px 12px; }
+.create-hosted-zone-page label { color: var(--aws-text-primary); }
+
+/* Radio tiles style like AWS: rounded cards with blue selected outline */
+.create-hosted-zone-page label[role="radio"], .create-hosted-zone-page label[role="option"] { border-radius: 8px; }
+.create-hosted-zone-page .p-3.border { border-radius: 8px; }
+.create-hosted-zone-page .p-3.border input[type="radio"] { accent-color: #0066cc; }
+.create-hosted-zone-page .p-3.border.bg-\[\#f0f8ff\] { background-color: #f0f8ff !important; }
+.create-hosted-zone-page .p-3.border.border-\[\#0073bb\], .create-hosted-zone-page .p-3.border.border-\[\#0073bb\]:not([class*="bg-"]) { box-shadow: 0 0 0 3px rgba(0,115,187,0.06) inset; }
+
+/* Ensure selected tile content stays visible in both light and dark */
+.create-hosted-zone-page label.selected { background-color: #f0f8ff !important; border-color: #0073bb !important; }
+.create-hosted-zone-page label.selected, .create-hosted-zone-page label.selected * { color: #072635 !important; }
+.dark .create-hosted-zone-page label.selected, .dark .create-hosted-zone-page label.selected * { color: #072635 !important; }
+.create-hosted-zone-page label.selected p,
+.create-hosted-zone-page label.selected span,
+.create-hosted-zone-page label.selected div { color: #2f6b88 !important; }
+
+/* Action buttons: orange pill on right, cancel link blue */
+.create-hosted-zone-page .aws-btn-primary { background: var(--aws-orange); color: #111; border-radius: 999px; padding: 10px 18px; }
+.create-hosted-zone-page .aws-btn-secondary { background: transparent; color: #0066cc; border: none; padding: 8px 12px; }
+.create-hosted-zone-page .flex.items-center.gap-3 { justify-content: flex-end; }
+
+/* Make the right info column cards slightly smaller and aligned */
+.create-hosted-zone-page .w-72 .aws-card { border-radius: 8px; }
+
+/* Ensure overall page spacing mirrors screenshot */
+.create-hosted-zone-page > .aws-card, .create-hosted-zone-page .breadcrumbs { margin-bottom: 14px; }
+
+/* Zone detail page specific visual tweaks to match screenshot pixels */
+.zone-detail-page {
+  --zone-card-radius: 12px;
+}
+.zone-detail-page .aws-card { border-radius: var(--zone-card-radius); border: 1px solid var(--aws-border-light); background: var(--aws-bg-white); }
+.zone-detail-page .aws-card-header { background: transparent; border-bottom: 1px solid var(--aws-border-light); padding: 16px 20px; border-radius: var(--zone-card-radius) var(--zone-card-radius) 0 0; }
+.zone-detail-page .aws-card .aws-action-bar { padding: 14px 18px; gap: 10px; }
+.zone-detail-page .aws-filter-bar { padding: 12px 18px; display: flex; gap: 12px; align-items: center; }
+.zone-detail-page .aws-filter-bar .aws-input { border-radius: 8px; padding: 10px 12px; background: #fafafa; }
+.zone-detail-page .aws-filter-bar select.aws-select { border-radius: 6px; padding: 8px 10px; }
+.zone-detail-page .aws-btn-primary { border-radius: 999px; padding: 8px 16px; background: var(--aws-orange); color: #111; }
+.zone-detail-page .aws-btn-secondary { border-radius: 8px; padding: 8px 12px; }
+.zone-detail-page .aws-card.overflow-hidden { padding: 0 0 12px 0; }
+
+/* Tabs style */
+.zone-detail-page .tabs, .zone-detail-page .aws-card > .tabs { display: flex; gap: 18px; padding: 12px 18px; border-bottom: 1px solid var(--aws-border-light); }
+.zone-detail-page .tabs a, .zone-detail-page .tabs button { color: var(--aws-text-secondary); font-weight: 600; }
+.zone-detail-page .tabs .active { color: #0066cc; border-bottom: 3px solid #0066cc; padding-bottom: 8px; }
+
+/* Table spacing and row visuals */
+.zone-detail-page .aws-table th, .zone-detail-page .aws-table td { padding: 12px 10px; vertical-align: middle; }
+.zone-detail-page .aws-table tbody tr { border-bottom: 1px solid var(--aws-border-light); }
+.zone-detail-page .aws-table tbody tr.selected { background: rgba(6,78,130,0.03); }
+
+/* Make info column cards smaller */
+.zone-detail-page .w-72 .aws-card { border-radius: 8px; padding: 10px; }
+
+/* Breadcrumbs spacing */
+.zone-detail-page .breadcrumbs { margin-bottom: 8px; }
+
+/* Ensure the create-record button sits visually to the right like screenshot */
+.zone-detail-page .aws-action-bar { align-items: center; }
+.zone-detail-page .aws-action-bar .ml-auto { margin-left: auto; }
+
+/* Hosted zone details specific styling to match exact layout */
+.zone-details-card { border-radius: 12px; padding: 0; overflow: visible; }
+.zone-details-card .aws-card-header { padding: 18px 22px; display: flex; align-items: center; gap: 12px; }
+.zone-details-card .aws-card-header h2 { font-size: 20px; margin: 0; position: relative; padding-left: 18px; }
+.zone-details-card .aws-card-header h2::before { content: '\25BE'; /* small downward triangle */ position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 14px; color: #111; }
+.zone-details-card .aws-card-header button { border-radius: 999px; padding: 8px 14px; border: 2px solid #0073bb; color: #0073bb; background: transparent; }
+.zone-details-card .p-5 { padding: 20px 22px; }
+.zone-details-card .p-5 > div { padding: 0 18px; }
+.zone-details-card .p-5 > div + div { border-left: 1px solid var(--aws-border-light); }
+.zone-details-card .p-5 > div + div + div { border-left: 1px solid var(--aws-border-light); }
+.zone-details-card .p-5 p,
+.zone-details-card .p-5 span,
+.zone-details-card .p-5 div { color: var(--aws-text-primary); }
+.zone-details-card .p-5 .font-semibold { color: var(--aws-text-primary); }
+.zone-details-card .aws-card-header { border-bottom: none; }
+
+/* Make the details panel edge rounded and inset like screenshot */
+.zone-details-card { background: var(--aws-bg-white); border: 1px solid var(--aws-border-light); box-shadow: none; }
+
+/* Ensure tabs sit immediately under details panel */
+.zone-detail-page .tabs { margin-top: 10px; }
+.aws-sidebar-icon { color: var(--aws-text-secondary); }
+.aws-sidebar-icon-active { color: var(--aws-orange); }
+.aws-sidebar-icon-inactive { color: #7b8a98; }
+.aws-sidebar-divider { border-top: 1px solid var(--aws-sidebar-border); }
+.aws-sidebar-collapse-btn { color: var(--aws-text-secondary); border-top: 1px solid var(--aws-sidebar-border); }
+.aws-sidebar-collapse-btn:hover { color: #fff; background-color: var(--aws-sidebar-hover); }
+
+/* ensure collapsed active state border color uses aws-orange */
+.aws-sidebar-item-active-collapsed { background-color: var(--aws-sidebar-active); color: #fff; border-left-color: var(--aws-orange); }
+.aws-sidebar-item-collapsed { color: var(--aws-text-secondary); }
+
+/* Strong light-mode sidebar overrides to ensure fully light appearance */
+.light .aws-sidebar {
+  background-color: var(--aws-bg-white) !important;
+  color: var(--aws-text-primary) !important;
+  border-right-color: var(--aws-border-light) !important;
+}
+.light .aws-sidebar nav { background: transparent !important; }
+.light .aws-sidebar .aws-sidebar-section-header { color: #69707a !important; }
+.light .aws-sidebar-item { color: #42515a !important; background: transparent !important; }
+.light .aws-sidebar-item:hover { background-color: #f2f3f3 !important; color: var(--aws-text-primary) !important; }
+.light .aws-sidebar-item-active { background-color: #eaf4ff !important; color: var(--aws-text-primary) !important; border-left-color: var(--aws-orange) !important; }
+.light .aws-sidebar-icon-inactive { color: #9aa5ad !important; }
+.light .aws-sidebar-icon-active { color: var(--aws-orange) !important; }
+.light .aws-sidebar-divider { border-top-color: var(--aws-border-light) !important; }
+.light .aws-sidebar-collapse-btn { color: #59646e !important; background: transparent !important; border-top-color: var(--aws-border-light) !important; }
+
+/* Fallback for any utility-based backgrounds inside the sidebar */
+.light .aws-sidebar [class*="bg-\["] { background-color: transparent !important; }
+
+/* Force cards, action bars and filter bars to follow theme */
+.dark .aws-card, .dark .aws-card-header, .dark .aws-action-bar, .dark .aws-filter-bar, .dark .bg-white, .dark .bg-\[\#ffffff\], .dark .bg-\[\#fafafa\] {
+  background-color: #07121a !important;
+  border-color: var(--aws-border) !important;
+  color: var(--aws-text-primary) !important;
+}
+
+.light .aws-card, .light .aws-card-header, .light .aws-action-bar, .light .aws-filter-bar, .light .bg-white, .light .bg-\[\#ffffff\], .light .bg-\[\#fafafa\] {
+  background-color: var(--aws-bg-white) !important;
+  border-color: var(--aws-border-light) !important;
+  color: var(--aws-text-primary) !important;
+}
+
+/* Ensure any element with explicit white/very light backgrounds inside content areas follows theme */
+.dark [class*="bg-\[\#fff"], .dark [class*="bg-\[\#f2f3f3\]"], .dark [class*="bg-white"] {
+  background-color: #07121a !important;
+}
+
+/* Target badges, selects and table rows that used explicit light backgrounds */
+.aws-badge-private { background: #f2f3f3; color: #545b64; border: 1px solid #d5dbdb; }
+.dark .aws-badge-private { background: #0b1116 !important; color: var(--aws-text-secondary) !important; border-color: var(--aws-border) !important; }
+
+.aws-select { background: #fff; color: var(--aws-text-primary); border: 1px solid var(--aws-border-light); }
+.dark .aws-select { background: #0f2430 !important; color: var(--aws-text-primary) !important; border-color: var(--aws-border) !important; }
+.light .aws-select { background: #fff !important; color: var(--aws-text-primary) !important; }
+
+/* Table hover/selected rows */
+.aws-table tr:hover td { background-color: #f2f8fc; }
+.dark .aws-table tr:hover td { background-color: rgba(255,255,255,0.02) !important; }
+.aws-table tr.selected td { background-color: #e8f4fc; }
+.dark .aws-table tr.selected td { background-color: rgba(11,17,22,0.12) !important; }
+
+/* Small inline pills (Private) used across UI */
+.aws-badge-private { border-radius: 10px; padding: 2px 8px; display: inline-flex; align-items: center; gap:6px; }
+
+
+
+
+
+
+/* Explicit light-mode class so we can force light variants where needed */
+.light {
+  --background: #f2f3f3;
+  --foreground: #16191f;
+  --aws-navy: #232f3e;
+  --aws-sidebar-bg: #1a2332;
+  --aws-sidebar-hover: #253345;
+  --aws-sidebar-active: #3e4f64;
+  --aws-sidebar-border: #253345;
+  --aws-border: #d5dbdb;
+  --aws-border-light: #eaeded;
+  --aws-text-primary: #16191f;
+  --aws-text-secondary: #545b64;
+}
+
+/* Map many commonly used hard-coded hex classes to theme variables for both light and dark */
+/* Backgrounds */
+.dark .bg-\[\#f2f3f3\], .light .bg-\[\#f2f3f3\] { background-color: var(--background) !important; }
+.dark .bg-\[\#ffffff\], .light .bg-\[\#ffffff\], .dark .bg-white, .light .bg-white { background-color: var(--aws-bg-white) !important; }
+.dark .bg-\[\#fafafa\], .light .bg-\[\#fafafa\] { background-color: var(--aws-bg-white) !important; }
+.dark .bg-\[\#fff8f0\], .light .bg-\[\#fff8f0\] { background-color: #fff8f0 !important; }
+.dark .bg-\[\#fcf2e3\], .light .bg-\[\#fcf2e3\] { background-color: #fcf2e3 !important; }
+.dark .bg-\[\#e3effc\], .light .bg-\[\#e3effc\] { background-color: #e3effc !important; }
+.dark .bg-\[\#e8f7e5\], .light .bg-\[\#e8f7e5\] { background-color: #e8f7e5 !important; }
+.dark .bg-\[\#ff9900\], .light .bg-\[\#ff9900\] { background-color: var(--aws-orange) !important; }
+.dark .bg-\[\#3e4f64\], .light .bg-\[\#3e4f64\] { background-color: var(--aws-sidebar-active) !important; }
+.dark .bg-\[\#1a2332\], .light .bg-\[\#1a2332\] { background-color: var(--aws-sidebar-bg) !important; }
+.dark .bg-\[\#16213a\], .light .bg-\[\#16213a\] { background-color: #16213a !important; }
+
+/* Text colors */
+.dark .text-\[\#16191f\], .light .text-\[\#16191f\] { color: var(--aws-text-primary) !important; }
+.dark .text-\[\#545b64\], .light .text-\[\#545b64\] { color: var(--aws-text-secondary) !important; }
+.dark .text-\[\#7b8a98\], .light .text-\[\#7b8a98\] { color: var(--aws-text-secondary) !important; }
+.dark .text-\[\#ff9900\], .light .text-\[\#ff9900\] { color: var(--aws-orange) !important; }
+
+/* Borders */
+.dark .border-\[\#eaeded\], .light .border-\[\#eaeded\] { border-color: var(--aws-border-light) !important; }
+.dark .border-\[\#d5dbdb\], .light .border-\[\#d5dbdb\] { border-color: var(--aws-border) !important; }
+.dark .border-\[\#aab7c4\], .light .border-\[\#aab7c4\] { border-color: #aab7c4 !important; }
+
+/* Hover variants */
+.dark .hover\:bg-\[\#f2f3f3\]:hover, .light .hover\:bg-\[\#f2f3f3\]:hover { background-color: var(--background) !important; }
+.dark .hover\:bg-\[\#f8f9fa\]:hover, .light .hover\:bg-\[\#f8f9fa\]:hover { background-color: #f8f9fa !important; }
+
+/* KBD / small UI elements */
+.dark .bg-\[\#232f3e\], .light .bg-\[\#232f3e\] { background-color: var(--aws-navy) !important; }
+.dark .border-gray-600, .light .border-gray-600 { border-color: var(--aws-sidebar-border) !important; }
+
+
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── AWS Sidebar Section Headers ────────────────────────────────────────── */
+.aws-sidebar-section-header {
+  font-size: 10px;
+  font-weight: 700;
+  color: #8b96a5;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 12px 16px 4px 16px;
+  user-select: none;
+}
+
+/* ─── AWS Sidebar Active / Hover Items ───────────────────────────────────── */
+.aws-sidebar-item-active {
+  background-color: var(--aws-sidebar-active) !important;
+  border-left: 3px solid var(--aws-orange) !important;
+  color: #ffffff !important;
+}
+
+.aws-sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #c5cad4;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background-color 0.12s, color 0.12s;
+  text-decoration: none;
+  user-select: none;
+}
+
+.aws-sidebar-item:hover {
+  background-color: var(--aws-sidebar-hover);
+  color: #ffffff;
+}
+
+.aws-sidebar-item-disabled {
+  color: #5d6b7a !important;
+  cursor: default;
+}
+
+/* ─── AWS Card / Table Shared Styles ─────────────────────────────────────── */
+.aws-card {
+  background: #fff;
+  border: 1px solid var(--aws-border-light);
+  border-radius: 2px;
+  box-shadow: 0 1px 1px 0 rgba(0,28,36,0.1), 0 1px 8px 0 rgba(0,28,36,0.05);
+}
+
+.aws-card-header {
+  border-bottom: 1px solid var(--aws-border-light);
+  background-color: #fafafa;
+  padding: 8px 16px;
+}
+
+.aws-table th {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--aws-text-secondary);
+  background: #fafafa;
+  border-bottom: 1px solid var(--aws-border-light);
+  padding: 8px 16px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.aws-table td {
+  font-size: 13px;
+  color: var(--aws-text-primary);
+  border-bottom: 1px solid var(--aws-border-light);
+  padding: 10px 16px;
+  vertical-align: middle;
+}
+
+.aws-table tr:hover td {
+  background-color: #f2f8fc;
+}
+
+.aws-table tr.selected td {
+  background-color: #e8f4fc;
+}
+
+/* ─── AWS Buttons ─────────────────────────────────────────────────────────── */
+.aws-btn-primary {
+  background-color: var(--aws-orange);
+  border: 1px solid var(--aws-orange-dark);
+  color: #000;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.aws-btn-primary:hover { background-color: var(--aws-orange-hover); }
+.aws-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.aws-btn-secondary {
+  background-color: #fff;
+  border: 1px solid #7b8a98;
+  color: var(--aws-text-primary);
+  font-size: 13px;
+  font-weight: 400;
+  padding: 5px 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.1s, border-color 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.aws-btn-secondary:hover { background-color: #f2f3f3; border-color: #545b64; }
+.aws-btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; background-color: #f2f3f3; }
+
+.aws-btn-danger {
+  background-color: #fff;
+  border: 1px solid #d13212;
+  color: #d13212;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 5px 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.aws-btn-danger:hover { background-color: #fdf3f1; }
+.aws-btn-danger:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Dark-mode button styles */
+.dark .aws-btn-primary { background-color: var(--aws-orange) !important; color: #000 !important; border-color: var(--aws-orange-dark) !important; }
+.dark .aws-btn-primary:hover { filter: brightness(0.95); }
+
+.dark .aws-btn-secondary { background-color: transparent !important; border-color: var(--aws-border) !important; color: var(--aws-text-primary) !important; }
+.dark .aws-btn-secondary:hover { background-color: rgba(255,255,255,0.02) !important; }
+
+.dark .aws-btn-danger { background-color: transparent !important; border-color: #d13212 !important; color: #ffb4a8 !important; }
+.dark .aws-btn-danger:hover { background-color: rgba(209,50,18,0.06) !important; }
+.dark .aws-btn-danger:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ─── AWS Form Inputs ─────────────────────────────────────────────────────── */
+.aws-input {
+  border: 1px solid #aab7c4;
+  border-radius: 2px;
+  background: #fff;
+  font-size: 13px;
+  padding: 5px 10px;
+  outline: none;
+  width: 100%;
+  font-family: inherit;
+  color: var(--aws-text-primary);
+  transition: border-color 0.1s, box-shadow 0.1s;
+}
+.aws-input:focus {
+  border-color: var(--aws-blue-dark);
+  box-shadow: 0 0 0 2px rgba(0, 115, 187, 0.2);
+}
+.aws-input:disabled {
+  background: #f2f3f3;
+  color: #87909d;
+  cursor: not-allowed;
+}
+
+.aws-select {
+  border: 1px solid #aab7c4;
+  border-radius: 2px;
+  background: #fff;
+  font-size: 13px;
+  padding: 5px 28px 5px 10px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='%23545b64' d='M4 6l4 4 4-4'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+  font-family: inherit;
+  color: var(--aws-text-primary);
+  transition: border-color 0.1s;
+}
+.aws-select:focus { border-color: var(--aws-blue-dark); }
+
+/* ─── AWS Checkbox ────────────────────────────────────────────────────────── */
+.aws-checkbox {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #7b8a98;
+  border-radius: 2px;
+  cursor: pointer;
+  accent-color: var(--aws-blue-dark);
+}
+
+/* ─── AWS Badge / Type Tags ───────────────────────────────────────────────── */
+.aws-badge-public {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #e8f7e5;
+  color: #1d8102;
+  border: 1px solid #c3e6cb;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 8px;
+}
+
+.aws-badge-private {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #f2f3f3;
+  color: #545b64;
+  border: 1px solid #d5dbdb;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 8px;
+}
+
+.aws-record-type-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  background: #eaf3fb;
+  color: #0066cc;
+  border: 1px solid #bee3f8;
+  border-radius: 2px;
+  padding: 1px 6px;
+  font-family: 'Courier New', monospace;
+}
+
+/* ─── AWS Hosted Zone ID ──────────────────────────────────────────────────── */
+.aws-zone-id {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #16191f;
+  letter-spacing: 0.01em;
+}
+
+/* ─── Breadcrumbs ─────────────────────────────────────────────────────────── */
+.aws-breadcrumb {
+  font-size: 12px;
+  color: #545b64;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.aws-breadcrumb a {
+  color: var(--aws-blue);
+  text-decoration: none;
+}
+.aws-breadcrumb a:hover { text-decoration: underline; }
+
+/* ─── Custom Scrollbars ───────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+
+/* ─── Flash Animations ────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.15s ease-out;
+}
+
+/* ─── AWS Action Bar (above table) ───────────────────────────────────────── */
+.aws-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #fff;
+  border-bottom: 1px solid var(--aws-border-light);
+  flex-wrap: wrap;
+}
+
+/* ─── AWS Filter/Search bar (in table header) ────────────────────────────── */
+.aws-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #fafafa;
+  border-bottom: 1px solid var(--aws-border-light);
+}
