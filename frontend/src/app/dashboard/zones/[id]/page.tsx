@@ -328,99 +328,6 @@ export default function ZoneDetailPage({ params }: PageProps) {
         </div>
       )}
 
-      {/* ── Zone Detail Header ── */}
-      <div className="mb-5">
-        {loadingZone ? (
-          <div className="h-8 bg-gray-200 w-72 animate-pulse rounded mb-2" />
-        ) : (
-          <div className="flex items-start justify-between">
-            <div>
-              <div className="flex items-center gap-3 mb-1">
-                <Link href="/dashboard/zones" className="text-[#545b64] hover:text-[#16191f]" title="Back">
-                  <ArrowLeft className="w-4 h-4" />
-                </Link>
-                <h1 className="text-[20px] font-semibold text-[#16191f]">{zone?.domain_name}</h1>
-                {zone?.zone_type === 'Public' ? (
-                  <span className="aws-badge-public"><Globe className="w-2.5 h-2.5" />Public</span>
-                ) : (
-                  <span className="aws-badge-private"><Lock className="w-2.5 h-2.5" />Private</span>
-                )}
-              </div>
-              <div className="flex items-center gap-4 text-[12px] text-[#545b64] ml-7">
-                <span>
-                  <span className="font-semibold">Hosted zone ID:</span>{' '}
-                  <span className="aws-zone-id">
-                    {(zone as any)?.hosted_zone_id || `Z${String(zone?.id || 0).padStart(13, '0')}`}
-                  </span>
-                </span>
-                <span>
-                  <span className="font-semibold">Record count:</span> {zone?.record_count}
-                </span>
-                {zone?.description && (
-                  <span>
-                    <span className="font-semibold">Description:</span> {zone.description}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {/* Action buttons */}
-            <div className="flex items-center gap-2">
-              {/* Export dropdown */}
-              <div className="relative">
-                <button
-                  onClick={() => setExportMenuOpen(!exportMenuOpen)}
-                  className="aws-btn-secondary"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  Export
-                  <ChevronDown className="w-3 h-3" />
-                </button>
-                {exportMenuOpen && (
-                  <div
-                    className="absolute right-0 top-full mt-1 bg-white border border-[#d5dbdb] shadow-md z-20 animate-fadeIn"
-                    style={{ borderRadius: '2px', minWidth: '160px' }}
-                  >
-                    <button
-                      onClick={handleExportJson}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-[13px] hover:bg-[#f2f3f3] text-left"
-                    >
-                      <FileJson className="w-3.5 h-3.5 text-gray-400" />
-                      Export as JSON
-                    </button>
-                    <button
-                      onClick={handleExportBind}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-[13px] hover:bg-[#f2f3f3] text-left"
-                    >
-                      <FileCode className="w-3.5 h-3.5 text-gray-400" />
-                      Export BIND format
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              {/* Import BIND */}
-              <button
-                onClick={() => setIsImportOpen(true)}
-                className="aws-btn-secondary"
-              >
-                <Upload className="w-3.5 h-3.5" />
-                Import zone file
-              </button>
-
-              {/* Create record */}
-              <button
-                onClick={() => { resetCreate(); setIsCreateOpen(true); }}
-                className="aws-btn-primary"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                Create record
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-
       {/* ── Hosted zone details (three-column panel) ── */}
       <div className="aws-card mb-6 zone-details-card">
         <div className="aws-card-header flex items-center justify-between">
@@ -488,13 +395,74 @@ export default function ZoneDetailPage({ params }: PageProps) {
             Delete{selectedCount > 1 ? ` (${selectedCount})` : ''}
           </button>
 
-          <button
-            onClick={handleRefresh}
-            className="aws-btn-secondary ml-auto"
-            title="Refresh"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-          </button>
+          <div className="ml-auto flex items-center gap-2">
+
+  {/* Export */}
+  <div className="relative">
+    <button
+      onClick={() => setExportMenuOpen(!exportMenuOpen)}
+      className="aws-btn-secondary"
+    >
+      <Download className="w-3.5 h-3.5" />
+      Export
+      <ChevronDown className="w-3 h-3" />
+    </button>
+
+    {exportMenuOpen && (
+      <div
+        className="absolute right-0 top-full mt-1 bg-white border border-[#d5dbdb] shadow-md z-20"
+        style={{ borderRadius: "2px", minWidth: "170px" }}
+      >
+        <button
+          onClick={handleExportJson}
+          className="flex items-center gap-2 w-full px-4 py-2 hover:bg-[#f2f3f3]"
+        >
+          <FileJson className="w-3.5 h-3.5" />
+          Export as JSON
+        </button>
+
+        <button
+          onClick={handleExportBind}
+          className="flex items-center gap-2 w-full px-4 py-2 hover:bg-[#f2f3f3]"
+        >
+          <FileCode className="w-3.5 h-3.5" />
+          Export BIND format
+        </button>
+      </div>
+    )}
+  </div>
+
+  {/* Import */}
+  <button
+    onClick={() => setIsImportOpen(true)}
+    className="aws-btn-secondary"
+  >
+    <Upload className="w-3.5 h-3.5" />
+    Import zone file
+  </button>
+
+  {/* Create */}
+  <button
+    onClick={() => {
+      resetCreate();
+      setIsCreateOpen(true);
+    }}
+    className="aws-btn-primary"
+  >
+    <Plus className="w-3.5 h-3.5" />
+    Create record
+  </button>
+
+  {/* Refresh */}
+  <button
+    onClick={handleRefresh}
+    className="aws-btn-secondary"
+    title="Refresh"
+  >
+    <RefreshCw className="w-3.5 h-3.5" />
+  </button>
+
+</div>
 
           {selectedCount > 0 && (
             <span className="text-[12px] text-[#545b64]">{selectedCount} selected</span>
