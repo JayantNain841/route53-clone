@@ -26,6 +26,8 @@ A high-fidelity, production-quality clone of the AWS Route 53 management console
 - **Auth**: Mock JWT tokens
 
 ---
+Frontend (Vercel): https://route53-clone-pj0l949em-nainjay419-9613s-projects.vercel.app/
+Backend (Railway): https://route53-clone-production-8f28.up.railway.app/
 
 ## Features
 
