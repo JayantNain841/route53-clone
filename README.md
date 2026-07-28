@@ -192,6 +192,3 @@ route53-clone/
 3. Set Framework Preset to **Next.js**.
 4. Set environment variable `NEXT_PUBLIC_API_URL` to your backend Render URL.
 5. Click **Deploy**. Vercel will build and serve your app.
-
-> **Disclaimer**
-> This project is a high-fidelity clone of the AWS Route 53 Console built for educational and demonstration purposes. It does not integrate with the AWS Route 53 API or perform real DNS operations. All hosted zones and DNS records are stored locally in a SQLite database.
